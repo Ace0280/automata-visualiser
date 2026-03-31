@@ -127,9 +127,9 @@ function stepSimLogic() {
     const t = automaton.transitions[sim.current];
     const next = t ? t[sym] : null;
     if (!next) {
-      const msg = `<span style="color:var(--reject)">Dead state reached at step ${sim.step+1}</span>`;
+      const msg = `<span style="color:var(--error)">Dead state reached at step ${sim.step+1}</span>`;
       addHistoryEntry(msg);
-      setTrace(`<span style="color:var(--reject)">Dead state reached.</span>`);
+      setTrace(`<span style="color:var(--error)">Dead state reached.</span>`);
       sim.running  = false;
       sim.finished = true;
       setStatus('reject', 'REJECT');
@@ -166,9 +166,9 @@ function finishSim() {
 
   setStatus(accepted ? 'accept' : 'reject', accepted ? 'ACCEPT' : 'REJECT');
   const pathStr = sim.path.join(' → ');
-  const resultHtml = `<span style="color:${accepted ? 'var(--accept)' : 'var(--reject)'}">${accepted ? '✓ ACCEPTED' : '✗ REJECTED'}</span> | Path: ${pathStr}`;
+  const resultHtml = `<span style="color:${accepted ? 'var(--success)' : 'var(--error)'}">${accepted ? '✓ ACCEPTED' : '✗ REJECTED'}</span> | Path: ${pathStr}`;
   setTrace(resultHtml);
-  addHistoryEntry(`<strong style="color:${accepted ? 'var(--accept)' : 'var(--reject)'}">${accepted ? '✓ ACCEPTED' : '✗ REJECTED'}</strong>`);
+  addHistoryEntry(`<strong style="color:${accepted ? 'var(--success)' : 'var(--error)'}">${accepted ? '✓ ACCEPTED' : '✗ REJECTED'}</strong>`);
 
   // Open history panel to show results
   const panel = document.getElementById('history-panel');

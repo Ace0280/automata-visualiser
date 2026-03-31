@@ -1,6 +1,6 @@
-# AutomataViz — DFA / NFA Visual Simulator
+# Stateforge — Finite Automata Toolkit
 
-A **GUI-based visual simulator** for Deterministic and Non-Deterministic Finite Automata with step-by-step transition animation.
+A **GUI-based visual learning workspace** for Deterministic and Non-Deterministic Finite Automata with step-by-step transition animation, subset construction, and regex compilation.
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
@@ -13,15 +13,16 @@ A **GUI-based visual simulator** for Deterministic and Non-Deterministic Finite 
 
 | Feature | Description |
 |---|---|
-| **DFA Simulation** | Define states, alphabet, transitions and simulate step-by-step |
-| **NFA Simulation** | Set-based simulation with multiple active states |
-| **ε-Transitions** | Full epsilon closure support for ε-NFA |
-| **Visual Graph** | Interactive D3.js rendered state diagram with animated transitions |
-| **Step-by-Step** | Manual step or auto-play with adjustable speed |
-| **Speed Control** | Slider to adjust simulation speed (200ms – 2000ms) |
-| **Quick Presets** | Pre-built automata (even 0s, ends in 01, contains "ab", divisible by 3, ε-NFA) |
-| **Export / Import** | Save and load automaton definitions as JSON |
-| **Simulation History** | Scrollable log of all simulation steps |
+| **DFA & NFA Simulation** | Define states, alphabet, transitions, and simulate sequentially or concurrently. |
+| **ε-Transitions** | Full epsilon closure support for ε-NFA. |
+| **Visual Graph** | Interactive D3.js rendered state diagram tracking state traversal. |
+| **Batch Testing** | Test multiple strings instantly and export results as CSV. |
+| **URL State Sharing** | Share your automaton exact configuration with a single URL natively. |
+| **NFA → DFA Conversion** | Interactively run Subset Construction to generate equivalent DFA. |
+| **Regex → NFA** | Build automata automatically from Regular Expressions (Thompson's construction). |
+| **Export Data** | Export transition tables as LaTeX grids or valid CSV. |
+| **Simulation History** | Scrollable trace log of the current execution. |
+| **Keyboard Shortcuts** | Fully keyboard-navigable execution controls. |
 
 ---
 
@@ -29,13 +30,13 @@ A **GUI-based visual simulator** for Deterministic and Non-Deterministic Finite 
 
 ### Live Demo
 
-You can try out the AutomataViz visual simulator directly in your browser, no installation required.
+You can try out the Stateforge toolkit directly in your browser, no installation required.
 
-🔗 **Run AutomataViz on Vercel:** [https://[YOUR-VERCEL-LINK].vercel.app](https://[YOUR-VERCEL-LINK].vercel.app)
+🔗 **Run Stateforge on Vercel:** [https://[YOUR-VERCEL-LINK].vercel.app](https://[YOUR-VERCEL-LINK].vercel.app)
 
-It works out of the box — just open the link, pick a preset, and hit simulate.
+It works out of the box — just open the link, pick a preset, or build one with Regex.
 
-> **Note:** The simulator is built with pure HTML, CSS, and Vanilla JavaScript, so the web version has full feature parity with running it locally.
+> **Note:** The simulator is built with pure HTML, CSS, and Vanilla JavaScript with modular structure.
 
 
 ---
