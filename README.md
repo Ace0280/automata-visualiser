@@ -32,7 +32,7 @@ A **GUI-based visual learning workspace** for Deterministic and Non-Deterministi
 
 You can try out the Stateforge toolkit directly in your browser, no installation required.
 
-🔗 **Run Stateforge on Vercel:** [https://[YOUR-VERCEL-LINK].vercel.app](https://[YOUR-VERCEL-LINK].vercel.app)
+🔗 **Run Stateforge on Vercel:** [https://automata-visualiser-fapn-5xkjvlnlr-ace0280s-projects.vercel.app]
 
 It works out of the box — just open the link, pick a preset, or build one with Regex.
 
