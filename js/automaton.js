@@ -87,6 +87,21 @@ const PRESETS = {
     },
     isNFA: true,
     testStr: 'abb'
+  },
+
+  regex_ex: {
+    states: ['r0','r1','r2','r3'],
+    alpha: ['0','1'],
+    start: 'r0',
+    finals: ['r3'],
+    trans: {
+      'r0': { '0': ['r0'], '1': ['r0','r1'] },
+      'r1': { '1': ['r2'] },
+      'r2': { [EPSILON]: ['r3'] },
+      'r3': {}
+    },
+    isNFA: true,
+    testStr: '01011'
   }
 };
 
