@@ -37,7 +37,7 @@ function setTrace(msg) {
 
 /* ── Simulation Control ─────────────────────────── */
 
-function startSim() {
+function initSimState() {
   sim.string   = document.getElementById('inp-string').value;
   sim.step     = 0;
   sim.path     = [automaton.start];
@@ -48,7 +48,6 @@ function startSim() {
   resetAllHighlights();
 
   if (nfaMode) {
-    // Compute initial epsilon closure
     const useEpsClosure = hasEpsilonTransitions();
     sim.current = useEpsClosure
       ? epsilonClosure(new Set([automaton.start]))
@@ -68,20 +67,29 @@ function startSim() {
 
   renderCharDisplay();
   setStatus('running', 'RUNNING');
+}
 
-  // Auto-play
+function startSim() {
+  if (sim.finished) resetSim();
+  if (!sim.running) initSimState();
   if (sim.string.length === 0) { finishSim(); return; }
 
   const speed = getSimSpeed();
   const interval = setInterval(() => {
     if (!sim.running || sim.finished) { clearInterval(interval); return; }
-    const done = stepSim();
+    const done = stepSimLogic();
     if (done) clearInterval(interval);
   }, speed);
 }
 
 function stepSim() {
-  if (sim.finished || !sim.running) return true;
+  if (sim.finished) return true;
+  if (!sim.running) initSimState();
+  if (sim.string.length === 0) { finishSim(); return true; }
+  return stepSimLogic();
+}
+
+function stepSimLogic() {
   if (sim.step >= sim.string.length) { finishSim(); return true; }
 
   const sym = sim.string[sim.step];

@@ -12,24 +12,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2000);
 }
 
-/* ── Theme Toggle ───────────────────────────────── */
-function initThemeToggle() {
-  const btn = document.getElementById('theme-toggle');
-  btn.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', next);
-    btn.textContent = next === 'light' ? '🌙' : '☀️';
-    localStorage.setItem('automata-theme', next);
-  });
 
-  // Load saved theme
-  const saved = localStorage.getItem('automata-theme');
-  if (saved) {
-    document.documentElement.setAttribute('data-theme', saved);
-    btn.textContent = saved === 'light' ? '🌙' : '☀️';
-  }
-}
 
 /* ── NFA Toggle ─────────────────────────────────── */
 function toggleNFA() {
@@ -69,7 +52,7 @@ function buildTransitionTableFromData() {
 
   automaton.states.forEach(st => {
     html += `<div class="trans-row" style="grid-template-columns:${gtc}">
-      <span style="font-size:12px;color:var(--accent2)">${st}</span>`;
+      <span>${st}</span>`;
     allSymbols.forEach(sym => {
       const existing = automaton.transitions[st] && automaton.transitions[st][sym];
       const val = existing

@@ -9,7 +9,7 @@ A **GUI-based visual simulator** for Deterministic and Non-Deterministic Finite 
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---|---|
@@ -21,47 +21,32 @@ A **GUI-based visual simulator** for Deterministic and Non-Deterministic Finite 
 | **Speed Control** | Slider to adjust simulation speed (200ms – 2000ms) |
 | **Quick Presets** | Pre-built automata (even 0s, ends in 01, contains "ab", divisible by 3, ε-NFA) |
 | **Export / Import** | Save and load automaton definitions as JSON |
-| **Dark / Light Theme** | Toggle between dark and light modes |
 | **Simulation History** | Scrollable log of all simulation steps |
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### Run Locally
+### Live Demo
 
-No build tools required — just open `index.html` in any modern browser:
+You can try out the AutomataViz visual simulator directly in your browser, no installation required.
 
-```bash
-# Clone the repository
-git clone https://github.com/your-username/dfa-nfa-simulator.git
-cd dfa-nfa-simulator
+🔗 **Run AutomataViz on Vercel:** [https://[YOUR-VERCEL-LINK].vercel.app](https://[YOUR-VERCEL-LINK].vercel.app)
 
-# Open in browser
-start index.html        # Windows
-open index.html         # macOS
-xdg-open index.html     # Linux
-```
+It works out of the box — just open the link, pick a preset, and hit simulate.
 
-### Or use a local server
+> **Note:** The simulator is built with pure HTML, CSS, and Vanilla JavaScript, so the web version has full feature parity with running it locally.
 
-```bash
-# Python
-python -m http.server 8000
-
-# Node.js
-npx serve .
-```
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 dfa-nfa-simulator/
 ├── index.html          # Main HTML page (markup only)
 ├── css/
-│   └── styles.css      # All styling (dark/light theme support)
+│   └── styles.css      # All styling 
 ├── js/
 │   ├── automaton.js    # Automaton data model, presets, ε-closure
 │   ├── ui.js           # DOM helpers, toast, table, theme toggle
@@ -74,7 +59,7 @@ dfa-nfa-simulator/
 
 ---
 
-## 🎮 Usage
+## Usage
 
 1. **Select a preset** from the sidebar, or define your own automaton
 2. **Build the transition table** and click "Draw Graph"
@@ -84,7 +69,7 @@ dfa-nfa-simulator/
 
 ---
 
-## 🛠 Technologies
+## Technologies
 
 - **HTML5** — Semantic markup
 - **CSS3** — Custom properties, grid layout, transitions
@@ -93,6 +78,6 @@ dfa-nfa-simulator/
 
 ---
 
-## 📄 License
+## License
 
 MIT License — feel free to use, modify, and distribute.

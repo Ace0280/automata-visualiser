@@ -19,7 +19,6 @@ function loadPreset(name) {
 /* ── Init ───────────────────────────────────────── */
 window.addEventListener('DOMContentLoaded', () => {
   // Initialize UI components
-  initThemeToggle();
   initSpeedControl();
   initHistoryPanel();
 
@@ -27,16 +26,105 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-build-table').addEventListener('click', buildTransitionTable);
   document.getElementById('btn-draw-graph').addEventListener('click', drawAutomaton);
   document.getElementById('mode-badge').addEventListener('click', toggleNFA);
+  
+  // Simulation controls
   document.getElementById('btn-simulate').addEventListener('click', startSim);
   document.getElementById('btn-step').addEventListener('click', stepSim);
   document.getElementById('btn-reset').addEventListener('click', resetSim);
+  
+  // Import/Export
   document.getElementById('btn-export').addEventListener('click', handleExport);
   document.getElementById('btn-import').addEventListener('click', handleImport);
+  if (typeof exportLaTeX === 'function') document.getElementById('btn-export-latex').addEventListener('click', exportLaTeX);
+  if (typeof exportCSV === 'function') document.getElementById('btn-export-csv').addEventListener('click', exportCSV);
+
+  // Batch Testing
+  if (typeof runBatch === 'function') {
+    document.getElementById('btn-batch-run').addEventListener('click', runBatch);
+    document.getElementById('btn-batch-close').addEventListener('click', () => {
+      document.getElementById('batch-panel').style.display = 'none';
+      document.getElementById('canvas-split-container').style.height = '100%';
+    });
+    document.getElementById('btn-batch-export').addEventListener('click', () => {
+      if (typeof exportBatchCSV === 'function') exportBatchCSV(window.lastBatchResults || []);
+    });
+  }
+
+  // URL Sharing
+  if (typeof encodeAutomatonToURL === 'function') {
+    document.getElementById('btn-share').addEventListener('click', () => {
+      readTransitionsFromTable();
+      const url = encodeAutomatonToURL();
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('Link copied to clipboard!');
+      }).catch(() => {
+        prompt('Copy this link:', url);
+      });
+    });
+  }
+
+  // NFA -> DFA Converter
+  if (typeof buildAndShowDFA === 'function') {
+    document.getElementById('btn-convert').addEventListener('click', buildAndShowDFA);
+    document.getElementById('btn-close-dfa').addEventListener('click', () => {
+      document.getElementById('dfa-pane').style.display = 'none';
+    });
+    document.getElementById('btn-load-dfa').addEventListener('click', loadConvertedDFA);
+  }
+
+  // Regex Builder
+  if (typeof handleRegexBuild === 'function') {
+    document.getElementById('btn-regex-build').addEventListener('click', handleRegexBuild);
+  }
 
   // Preset buttons
   document.querySelectorAll('[data-preset]').forEach(btn => {
     btn.addEventListener('click', () => loadPreset(btn.dataset.preset));
   });
+
+  // Keyboard Shortcuts (Feature 5)
+  document.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+    switch(e.key) {
+      case ' ':      e.preventDefault(); stepSim(); break;
+      case 'Enter':  startSim(); break;
+      case 'r':
+      case 'R':
+      case 'Escape': resetSim(); break;
+      case 'g':
+      case 'G':      drawAutomaton(); break;
+    }
+  });
+
+  // Check URL Hash for shared state
+  if (typeof decodeAutomatonFromURL === 'function') {
+    const sharedJSON = decodeAutomatonFromURL();
+    if (sharedJSON) {
+      const success = importAutomatonJSON(sharedJSON);
+      if (success) {
+        setNFAMode(automaton.isNFA);
+        populateFormFromAutomaton();
+        buildTransitionTableFromData();
+        drawAutomaton();
+        resetSim();
+        showToast('Shared automaton loaded!');
+        return; // Skip loading default preset
+      }
+    }
+    
+    // Also listen for hash changes
+    window.addEventListener('hashchange', () => {
+      const json = decodeAutomatonFromURL();
+      if (json && importAutomatonJSON(json)) {
+        setNFAMode(automaton.isNFA);
+        populateFormFromAutomaton();
+        buildTransitionTableFromData();
+        drawAutomaton();
+        resetSim();
+        showToast('Shared automaton loaded!');
+      }
+    });
+  }
 
   // Load default
   loadPreset('even_zeros');
