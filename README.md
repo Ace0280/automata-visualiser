@@ -53,6 +53,11 @@ dfa-nfa-simulator/
 │   ├── ui.js           # DOM helpers, toast, table, theme toggle
 │   ├── graph.js        # D3.js graph rendering
 │   ├── simulator.js    # Simulation engine (DFA/NFA/ε-NFA)
+│   ├── batch.js    # Implements batch testing to enable testing multiple string at one time
+│   ├── converter.js    # Handles the NFA to DFA conversion
+│   ├── export.js    # Export you automata as JSON, LaTeX or CSV
+│   ├── regex.js    # REGEX to FA implementations
+│   ├── share.js    # Share you designs to people
 │   └── app.js          # Main entry point, event wiring
 ├── .gitignore
 └── README.md
