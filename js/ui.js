@@ -25,6 +25,10 @@ function updateNFAUI() {
   const badge = document.getElementById('mode-badge');
   badge.textContent = nfaMode ? 'NFA MODE' : 'DFA MODE';
   badge.className = nfaMode ? 'badge nfa-badge' : 'badge dfa-badge';
+
+  // Show/hide topbar convert button
+  const convertBtn = document.getElementById('btn-convert-topbar');
+  if (convertBtn) convertBtn.style.display = nfaMode ? 'inline-flex' : 'none';
 }
 
 function setNFAMode(isNFA) {

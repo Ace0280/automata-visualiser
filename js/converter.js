@@ -83,7 +83,20 @@ function buildAndShowDFA() {
   readTransitionsFromTable(); // Ensure state is synced
   convertedDFA = nfaToDFA();
   
-  document.getElementById('dfa-pane').style.display = 'flex';
+  // Show the DFA pane
+  const dfaPane = document.getElementById('dfa-pane');
+  dfaPane.style.display = 'flex';
+  
+  // Force layout reflow so the panes have their correct sizes
+  dfaPane.offsetHeight;
+  
+  // Re-render the NFA in the now-smaller left pane
+  const svgDataOut = { nodes: [], links: [] };
+  drawAutomatonToTarget(automaton, '#main-svg', svgDataOut);
+  primarySvgData = svgDataOut;
+  
+  // Render the converted DFA in the right pane
+  drawAutomatonToTarget(convertedDFA, '#dfa-result-svg');
   
   // Log construction steps to history
   let stepsLog = `<strong style="color:var(--primary)">Subset Construction Log:</strong><br>`;
@@ -97,9 +110,7 @@ function buildAndShowDFA() {
   });
   
   if (typeof addHistoryEntry === 'function') addHistoryEntry(stepsLog);
-  if (typeof drawAutomatonToTarget === 'function') {
-      drawAutomatonToTarget(convertedDFA, '#dfa-result-svg');
-  }
+  showToast('NFA converted to DFA!');
 }
 
 function loadConvertedDFA() {
@@ -112,11 +123,15 @@ function loadConvertedDFA() {
   automaton.transitions = convertedDFA.transitions;
   automaton.isNFA = false;
   
+  // Hide the DFA pane first
+  document.getElementById('dfa-pane').style.display = 'none';
+  
   setNFAMode(false);
   populateFormFromAutomaton();
   buildTransitionTableFromData();
-  drawAutomaton();
+  requestAnimationFrame(() => {
+    drawAutomaton();
+  });
   
-  document.getElementById('dfa-pane').style.display = 'none';
   showToast('DFA loaded as active automaton.');
 }

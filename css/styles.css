@@ -282,6 +282,52 @@ input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
 .btn.success { background: var(--success); border-color: var(--success); color: #fff; }
 .btn.danger  { background: var(--error); border-color: var(--error); color: #fff; }
 
+.btn.conv-arrow-btn {
+  padding: 2px 4px;
+  line-height: 0;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  transition: all 0.25s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.btn.conv-arrow-btn:hover {
+  background: transparent;
+  transform: scale(1.08);
+  filter: brightness(1.2);
+}
+
+.btn.conv-arrow-btn .conv-arrow-svg {
+  display: block;
+}
+
+.btn.conv-arrow-btn::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--text-main);
+  color: var(--bg);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+  z-index: 100;
+}
+
+.btn.conv-arrow-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 .btn-row {
   display: flex;
   gap: 8px;
@@ -348,7 +394,7 @@ input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
 }
 
 #dfa-pane {
-  border-left: 2px solid var(--primary);
+  border-left: 2px solid #1E2824;
 }
 
 .canvas-pane svg {

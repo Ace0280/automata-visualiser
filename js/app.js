@@ -65,9 +65,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // NFA -> DFA Converter
   if (typeof buildAndShowDFA === 'function') {
-    document.getElementById('btn-convert').addEventListener('click', buildAndShowDFA);
+    document.getElementById('btn-convert-topbar').addEventListener('click', buildAndShowDFA);
     document.getElementById('btn-close-dfa').addEventListener('click', () => {
       document.getElementById('dfa-pane').style.display = 'none';
+      // Wait for layout reflow before re-drawing at full width
+      requestAnimationFrame(() => {
+          drawAutomaton();
+      });
     });
     document.getElementById('btn-load-dfa').addEventListener('click', loadConvertedDFA);
   }
