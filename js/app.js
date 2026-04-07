@@ -137,10 +137,11 @@ const resizeObserver = new ResizeObserver(entries => {
   for (let entry of entries) {
     if (entry.target.id === 'main-pane') {
       if (automaton && automaton.states && automaton.states.length) {
-        drawAutomaton();
+        redrawAutomaton();
       }
     } else if (entry.target.id === 'dfa-pane') {
       if (typeof convertedDFA !== 'undefined' && convertedDFA) {
+        // DFA pane redraw also shouldn't reset NFA sim
         drawAutomatonToTarget(convertedDFA, '#dfa-result-svg');
       }
     }

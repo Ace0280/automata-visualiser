@@ -194,3 +194,15 @@ function resetSim() {
   setStatus('idle', 'IDLE');
   clearHistory();
 }
+function reapplyHighlights() {
+  if (!sim.running) return;
+  if (nfaMode) {
+    if (sim.current instanceof Set) {
+      sim.current.forEach(s => highlightNode(s, true));
+    }
+  } else {
+    if (sim.current) {
+      highlightNode(sim.current, true);
+    }
+  }
+}

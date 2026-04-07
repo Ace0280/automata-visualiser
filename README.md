@@ -13,9 +13,9 @@ A **GUI-based visual learning workspace** for Deterministic and Non-Deterministi
 
 | Feature | Description |
 |---|---|
-| **DFA & NFA Simulation** | Define states, alphabet, transitions, and simulate sequentially or concurrently. |
+| **DFA & NFA Simulation** | Define states, alphabet, transitions, and simulate sequentially or concurrently with intuitive visual feedback. |
 | **ε-Transitions** | Full epsilon closure support for ε-NFA. |
-| **Visual Graph** | Interactive D3.js rendered state diagram tracking state traversal. |
+| **Visual Graph** | Interactive D3.js rendered state diagram with **Zoom & Pan** support and state traversal tracking. |
 | **Batch Testing** | Test multiple strings instantly and export results as CSV. |
 | **URL State Sharing** | Share your automaton exact configuration with a single URL natively. |
 | **NFA → DFA Conversion** | Interactively run Subset Construction to generate equivalent DFA. |
@@ -23,6 +23,7 @@ A **GUI-based visual learning workspace** for Deterministic and Non-Deterministi
 | **Export Data** | Export transition tables as LaTeX grids or valid CSV. |
 | **Simulation History** | Scrollable trace log of the current execution. |
 | **Keyboard Shortcuts** | Fully keyboard-navigable execution controls. |
+| **Responsive Layout** | Automatic graph resizing and centering using `ResizeObserver` for all screen and pane sizes. |
 
 ---
 

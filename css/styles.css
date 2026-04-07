@@ -612,9 +612,10 @@ input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
 }
 
 .state-node.active circle.outer {
-  stroke: var(--primary-dark);
-  stroke-width: 4;
-  fill: #C4D0CA;
+  stroke: var(--accent-warm);
+  stroke-width: 5;
+  fill: #DCE6E1;
+  filter: drop-shadow(0 0 4px rgba(230, 197, 165, 0.6));
 }
 
 .state-node.start-state circle.outer {
@@ -639,8 +640,9 @@ input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
 }
 
 .edge.active path { 
-  stroke: var(--primary-soft); 
-  stroke-width: 2; 
+  stroke: var(--accent-warm); 
+  stroke-width: 3; 
+  filter: drop-shadow(0 0 2px rgba(230, 197, 165, 0.4));
 }
 
 .edge text {

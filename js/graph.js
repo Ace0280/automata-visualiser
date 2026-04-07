@@ -9,7 +9,24 @@ function drawAutomaton() {
   const svgDataOut = { nodes: [], links: [] };
   drawAutomatonToTarget(automaton, '#main-svg', svgDataOut);
   primarySvgData = svgDataOut; // Save for active highlights
+  
+  // If we are doing a FULL draw from button click, reset simulation
   resetSim();
+}
+
+/**
+ * Lightweight redraw that doesn't reset simulation state.
+ * Used for window resize or layout shifts.
+ */
+function redrawAutomaton() {
+  const svgDataOut = { nodes: [], links: [] };
+  drawAutomatonToTarget(automaton, '#main-svg', svgDataOut);
+  primarySvgData = svgDataOut;
+  
+  // Re-apply simulation highlights if active
+  if (typeof reapplyHighlights === 'function') {
+    reapplyHighlights();
+  }
 }
 
 /**
