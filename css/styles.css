@@ -402,6 +402,11 @@ input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
   flex: 1;
   position: relative;
   z-index: 1;
+  cursor: grab;
+}
+
+.canvas-pane svg:active {
+  cursor: grabbing;
 }
 
 .pane-header {

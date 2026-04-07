@@ -68,10 +68,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-convert-topbar').addEventListener('click', buildAndShowDFA);
     document.getElementById('btn-close-dfa').addEventListener('click', () => {
       document.getElementById('dfa-pane').style.display = 'none';
-      // Wait for layout reflow before re-drawing at full width
-      requestAnimationFrame(() => {
-          drawAutomaton();
-      });
+      // Redraw is handled by ResizeObserver
     });
     document.getElementById('btn-load-dfa').addEventListener('click', loadConvertedDFA);
   }
@@ -134,7 +131,26 @@ window.addEventListener('DOMContentLoaded', () => {
   loadPreset('even_zeros');
 });
 
-/* ── Resize ─────────────────────────────────────── */
-window.addEventListener('resize', () => {
-  if (automaton.states.length) drawAutomaton();
+/* ── Resize (Handled by ResizeObserver) ────────────────── */
+// Observer to redraw automaton when container size changes
+const resizeObserver = new ResizeObserver(entries => {
+  for (let entry of entries) {
+    if (entry.target.id === 'main-pane') {
+      if (automaton && automaton.states && automaton.states.length) {
+        drawAutomaton();
+      }
+    } else if (entry.target.id === 'dfa-pane') {
+      if (typeof convertedDFA !== 'undefined' && convertedDFA) {
+        drawAutomatonToTarget(convertedDFA, '#dfa-result-svg');
+      }
+    }
+  }
+});
+
+// Setup observers when DOM is ready
+window.addEventListener('DOMContentLoaded', () => {
+  const mainPane = document.getElementById('main-pane');
+  const dfaPane = document.getElementById('dfa-pane');
+  if (mainPane) resizeObserver.observe(mainPane);
+  if (dfaPane) resizeObserver.observe(dfaPane);
 });

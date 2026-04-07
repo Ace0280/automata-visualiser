@@ -21,8 +21,24 @@ function drawAutomatonToTarget(automatonObj, svgSelector, outDataObj = null) {
   
   const W = container.clientWidth || 700;
   const H = container.clientHeight || 500;
+  
+  // Clear SVG and reset its dimensions
   svg.attr('width', W).attr('height', H);
   svg.selectAll('*').remove();
+
+  // Setup Zoom Behavior
+  const g = svg.append('g').attr('class','graph');
+
+  const zoom = d3.zoom()
+    .scaleExtent([0.1, 4]) // Allow 10x zoom out and 4x zoom in
+    .on('zoom', (event) => {
+      g.attr('transform', event.transform);
+    });
+
+  svg.call(zoom);
+  
+  // Initial center transform (reset zoom to 1:1 and center)
+  svg.call(zoom.transform, d3.zoomIdentity);
 
   const defs = svg.append('defs');
   const arrowheadId = 'arrowhead-' + svgSelector.replace('#','');
@@ -73,8 +89,6 @@ function drawAutomatonToTarget(automatonObj, svgSelector, outDataObj = null) {
     outDataObj.nodes = nodes;
     outDataObj.links = links;
   }
-
-  const g = svg.append('g').attr('class','graph');
 
   // Draw edges FIRST so they stay strictly behind solid nodes
   links.forEach(link => {
